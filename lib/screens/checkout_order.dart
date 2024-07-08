@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shop_smart/stuff/nav_bar.dart';
 
 class CheckoutOrder extends StatelessWidget {
   const CheckoutOrder({super.key});
@@ -67,6 +68,25 @@ class CheckoutOrder extends StatelessWidget {
                           "View Order",
                           style: TextStyle(
                               color: Colors.red,
+                              fontSize: 15,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      )),
+                  TextButton(
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const ShopApp()));
+                      },
+                      style: const ButtonStyle(
+                          backgroundColor:
+                              MaterialStatePropertyAll(Colors.red)),
+                      child: const Center(
+                        child: Text(
+                          "Make Another Order",
+                          style: TextStyle(
+                              color: Colors.white,
                               fontSize: 15,
                               fontWeight: FontWeight.bold),
                         ),

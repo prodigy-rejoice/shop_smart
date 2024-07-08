@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:shop_smart/screens/checkout_order.dart';
 import '../model/cart_class.dart';
-import '../stuff/reusables.dart';
+import '../stuff/cart_tile.dart';
+import 'checkout_order.dart';
 
 class CartScreen extends StatefulWidget {
   CartScreen({super.key, required this.selectedItems});
@@ -27,6 +27,7 @@ class _CartScreenState extends State<CartScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         centerTitle: true,
         elevation: 0,
         backgroundColor: Colors.red,
@@ -38,10 +39,17 @@ class _CartScreenState extends State<CartScreen> {
         actions: [
           Container(
             margin: const EdgeInsets.only(right: 15),
-            child: const Icon(
-              Icons.shopping_cart_checkout_outlined,
-              color: Colors.white,
-              size: 26,
+            child: IconButton(
+              icon: const Icon(Icons.shopping_cart_checkout_outlined,
+                  color: Colors.white, size: 26),
+              onPressed: () {
+                widget.selectedItems.isNotEmpty
+                    ? Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const CheckoutOrder()))
+                    : null;
+              },
             ),
           )
         ],
@@ -89,12 +97,17 @@ class _CartScreenState extends State<CartScreen> {
                   const SizedBox(height: 7),
                   TextButton(
                     style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all(Colors.red)),
+                        backgroundColor: MaterialStateProperty.all(
+                            widget.selectedItems.isNotEmpty
+                                ? Colors.red
+                                : Colors.grey)),
                     onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const CheckoutOrder()));
+                      widget.selectedItems.isNotEmpty
+                          ? Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const CheckoutOrder()))
+                          : null;
                     },
                     child: const Text(
                       "Proceed to Checkout...",

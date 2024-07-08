@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:shop_smart/model/cart_class.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import '../model/api_model.dart';
 
-class ReusableCard extends StatefulWidget {
-  const ReusableCard(
+class ProductTile extends StatefulWidget {
+  const ProductTile(
       {super.key,
       required this.item,
       required this.price,
@@ -12,10 +13,11 @@ class ReusableCard extends StatefulWidget {
   final Function(String item, double price) addToCart;
 
   @override
-  State<ReusableCard> createState() => _ReusableCardState();
+  State<ProductTile> createState() => _ProductTileState();
 }
 
-class _ReusableCardState extends State<ReusableCard> {
+class _ProductTileState extends State<ProductTile> {
+  late final Product product;
   bool isAddedToCart = false;
 
   @override
@@ -27,11 +29,17 @@ class _ReusableCardState extends State<ReusableCard> {
         child: ListTile(
           contentPadding:
               const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-          leading: CircleAvatar(backgroundColor: Colors.grey[200], radius: 25),
-          title: Text(widget.item,
+          // leading: CircleAvatar(backgroundColor: Colors.grey[200], radius: 25),
+          leading: AspectRatio(
+              aspectRatio: 1,
+              child: CachedNetworkImage(
+                imageUrl: product.imageUrl,
+                fit: BoxFit.cover,
+              )),
+          title: Text(product.name,
               style:
                   const TextStyle(fontWeight: FontWeight.w500, fontSize: 18)),
-          subtitle: Text("\$ ${widget.price}",
+          subtitle: Text("\$ ${product.buyingPrice}",
               style: const TextStyle(
                 fontWeight: FontWeight.w400,
                 color: Colors.grey,
@@ -53,43 +61,5 @@ class _ReusableCardState extends State<ReusableCard> {
             },
           ),
         ));
-  }
-}
-
-class CartTile extends StatelessWidget {
-  const CartTile({
-    super.key,
-    required this.selectedItem,
-    required this.selectedItemPrice,
-    required this.onDismissed,
-  });
-
-  final String selectedItem;
-  final double selectedItemPrice;
-  final Function() onDismissed;
-
-  @override
-  Widget build(BuildContext context) {
-    return Dismissible(
-      key: UniqueKey(),
-      onDismissed: (DismissDirection direction) {
-        onDismissed();
-      },
-      child: Card(
-        color: Colors.white,
-        elevation: 0,
-        child: ListTile(
-          title: Text(selectedItem,
-              style:
-                  const TextStyle(fontWeight: FontWeight.w400, fontSize: 18)),
-          trailing: Text("\$ $selectedItemPrice",
-              style: const TextStyle(
-                fontWeight: FontWeight.w400,
-                fontSize: 19,
-                color: Colors.black,
-              )),
-        ),
-      ),
-    );
   }
 }
