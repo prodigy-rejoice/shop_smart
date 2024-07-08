@@ -1,65 +1,63 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:shop_smart/screens/details.dart';
 import '../model/api_model.dart';
 
-class ProductTile extends StatefulWidget {
-  const ProductTile(
-      {super.key,
-      required this.item,
-      required this.price,
-      required this.addToCart});
-  final String item;
-  final double price;
-  final Function(String item, double price) addToCart;
+class ProductCard extends StatelessWidget {
+  final Product product;
 
-  @override
-  State<ProductTile> createState() => _ProductTileState();
-}
+  const ProductCard({Key? key, required this.product}) : super(key: key);
 
-class _ProductTileState extends State<ProductTile> {
-  late final Product product;
-  bool isAddedToCart = false;
+  String getImageUrl(String? urLink) {
+    String? url =
+        'https://api.timbu.cloud/images/$urLink?organization_id=cbbdd49c95fa402a9c8a70d153ea73b5&reverse_sort=false&page=1&size=25&Appid=S062A2NYSR21UKZ&Apikey=4ab74e8f086d421bba03fa420e61db3720240708020303051772';
+    return url;
+  }
 
   @override
   Widget build(BuildContext context) {
+    String price = 'Price not available';
+    if (product.currentPrice != null && product.currentPrice!.isNotEmpty) {
+      var ngnPrices = product.currentPrice![0].NGN;
+      if (ngnPrices != null && ngnPrices.isNotEmpty) {
+        price = ngnPrices[0].toString();
+      }
+    }
     return Card(
-        margin: const EdgeInsets.symmetric(vertical: 2, horizontal: 7),
-        color: Colors.white,
-        elevation: 0,
-        child: ListTile(
-          contentPadding:
-              const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-          // leading: CircleAvatar(backgroundColor: Colors.grey[200], radius: 25),
-          leading: AspectRatio(
+      child: GestureDetector(
+        onTap: () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => Details(
+                        product: product,
+                      )));
+        },
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            AspectRatio(
               aspectRatio: 1,
               child: CachedNetworkImage(
-                imageUrl: product.imageUrl,
+                imageUrl: getImageUrl(
+                    product.photos!.isNotEmpty ? product.photos![0].url : ''),
                 fit: BoxFit.cover,
-              )),
-          title: Text(product.name,
-              style:
-                  const TextStyle(fontWeight: FontWeight.w500, fontSize: 18)),
-          subtitle: Text("\$ ${product.buyingPrice}",
-              style: const TextStyle(
-                fontWeight: FontWeight.w400,
-                color: Colors.grey,
-              )),
-          trailing: IconButton(
-            icon: Icon(
-              isAddedToCart
-                  ? Icons.done_outlined
-                  : Icons.add_shopping_cart_outlined,
-              color: Colors.black,
+                placeholder: (context, url) =>
+                    const Center(child: CircularProgressIndicator()),
+                errorWidget: (context, url, error) => const Icon(Icons.error),
+              ),
             ),
-            onPressed: () {
-              setState(() {
-                isAddedToCart = !isAddedToCart;
-                if (isAddedToCart) {
-                  widget.addToCart(widget.item, widget.price);
-                }
-              });
-            },
-          ),
-        ));
+            ListTile(
+                title: Text(
+                  product.name ?? '',
+                  style: const TextStyle(fontWeight: FontWeight.bold),
+                ),
+                subtitle: Text("\$ $price")
+                // Text(product.current_price?.firstOrNull?.NGN?.firstOrNull),
+                ),
+          ],
+        ),
+      ),
+    );
   }
 }

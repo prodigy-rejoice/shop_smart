@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:shop_smart/stuff/nav_bar.dart';
+import 'package:shop_smart/screens/products_screen.dart';
 
 void main() => runApp(const MyApp());
 
@@ -11,7 +11,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(useMaterial3: true),
-      home: const ShopApp(),
+      home: ProductsScreen(),
     );
   }
 }
