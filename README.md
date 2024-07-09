@@ -31,5 +31,5 @@ To use Timbu API:
 ![Screenshot_20240709_002619](https://github.com/rejoice-omotunwase/shop_smart/assets/108352463/f2c18019-083b-4edd-b206-26866fdfc8b0)
 
 ## Other Details:
-- Appetize Link: https://appetize.io/app/b_jypdutggooxrnbusbiqsu5v4gq  [this might take time to load, or might not load, you can check the link below as well ]
+- Appetize Link: https://appetize.io/app/b_w5kb3n7cjzl6bcvgbr2nmragzm
 - APK Download: https://drive.google.com/file/d/1zjdKH9w1Sr3WbIbtHu594m2vFT3skFv5/view?usp=sharing
