@@ -4,7 +4,7 @@ This is HNG Task 2 - it is a simple shopping app which calls a Timbu API to get 
 ## App Information
 This application has two screens - the "Products Screen" to view all the products from Timbu API, and a "Details Screen" to view a short description of each product/item.
 Each item is placed on a Card with an image, a name, and a price on the product screen.
-When an item is pressed, it pushes to the details screen which displays little information about that product - the description is also gotten from Timbu API.
+When an item is pressed, it pushes to the details screen which displays little information about that product - the description is also gotten from Timbu API and contains the item image and relevant information on it
 
 ## Setup Information
 To set up this flutter project locally,
