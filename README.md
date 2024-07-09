@@ -1,5 +1,4 @@
-![Screenshot_20240709_002634](https://github.com/rejoice-omotunwase/shop_smart/assets/108352463/745be74a-78f9-41a5-a1de-457eac7a36b0)![Screenshot_20240709_002634](https://github.com/rejoice-omotunwase/shop_smart/assets/108352463/aa02bafd-ef45-4a73-9096-95f20d672091)# shop_smart
-
+## HNG TASK 2
 This is HNG Task 2 - it is a simple shopping app which calls a Timbu API to get a list of products and the description of those products.
 
 ## App Information
